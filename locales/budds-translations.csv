@@ -1,7 +1,7 @@
 key,en,uk
 sections.budds_product_hero.badge,New,Новинка
 sections.budds_product_hero.heading,Daily greens for better energy,Daily greens для кращої енергії
-sections.budds_product_hero.text,"<p>A simple daily blend with vitamins, minerals, and plant-based nutrients to support energy, focus, and overall wellness.</p>","<p>Проста щоденна суміш з вітамінами, мінералами та рослинними нутрієнтами для підтримки енергії, фокусу й загального самопочуття.</p>"
+sections.budds_product_hero.text,"A simple daily blend with vitamins, minerals, and plant-based nutrients to support energy, focus, and overall wellness.","Проста щоденна суміш з вітамінами, мінералами та рослинними нутрієнтами для підтримки енергії, фокусу й загального самопочуття."
 sections.budds_product_hero.image_alt,Budds Daily Greens pouch and shaker,Пакет Budds Daily Greens і шейкер
 sections.budds_product_hero.shipping_text_html,"<p>Free shipping over <strong>{{ amount }}</strong></p>","<p>Безкоштовна доставка від <strong>{{ amount }}</strong></p>"
 sections.budds_product_hero.shipping_aria,Free shipping over {{ amount }},Безкоштовна доставка від {{ amount }}

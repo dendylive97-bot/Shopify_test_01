@@ -1,18 +1,9 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "budds_product_hero": {
       "badge": "Новинка",
       "heading": "Daily greens для кращої енергії",
-      "text": "<p>Проста щоденна суміш з вітамінами, мінералами та рослинними нутрієнтами для підтримки енергії, фокусу й загального самопочуття.</p>",
+      "text": "Проста щоденна суміш з вітамінами, мінералами та рослинними нутрієнтами для підтримки енергії, фокусу й загального самопочуття.",
       "image_alt": "Пакет Budds Daily Greens і шейкер",
       "shipping_text_html": "<p>Безкоштовна доставка від <strong>{{ amount }}</strong></p>",
       "shipping_aria": "Безкоштовна доставка від {{ amount }}",

@@ -34,7 +34,7 @@
                 selected
               {% endif %}
             >
-              {{ language.iso_code | upcase }}
+              {{ language.endonym_name | capitalize }}
             </option>
           {% endfor %}
         </select>
@@ -108,16 +108,22 @@
   #shopify-section-{{ section.id }} .budds-header__language {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 7px;
+    color: #0d2c1a;
   }
 
   #shopify-section-{{ section.id }} .budds-header__language select {
-    width: 20px;
-    min-height: 28px;
+    width: auto;
+    min-height: 32px;
     border: 0;
+    border-radius: 6px;
+    padding: 0 20px 0 4px;
     background: transparent;
-    color: transparent;
+    color: #0d2c1a;
     cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
   }
 
   #shopify-section-{{ section.id }} .budds-header__menu {
@@ -157,9 +163,26 @@
       font-size: 20px;
     }
 
-    #shopify-section-{{ section.id }} .budds-header__nav,
-    #shopify-section-{{ section.id }} .budds-header__language {
+    #shopify-section-{{ section.id }} .budds-header__nav {
       display: none;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__actions {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__language {
+      display: inline-flex;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__language span {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__language select {
+      max-width: 76px;
+      padding-right: 10px;
+      font-size: 12px;
     }
 
     #shopify-section-{{ section.id }} .budds-header__menu {
