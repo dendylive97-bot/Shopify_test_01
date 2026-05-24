@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "budds_product_hero": {
+      "badge": "Новинка",
+      "heading": "Daily greens для кращої енергії",
+      "text": "<p>Проста щоденна суміш з вітамінами, мінералами та рослинними нутрієнтами для підтримки енергії, фокусу й загального самопочуття.</p>",
+      "image_alt": "Пакет Budds Daily Greens і шейкер",
+      "shipping_text_html": "<p>Безкоштовна доставка від <strong>{{ amount }}</strong></p>",
+      "shipping_aria": "Безкоштовна доставка від {{ amount }}",
+      "button_label": "Купити зараз",
+      "button_label_us": "Купити зараз - {{ amount }}",
+      "button_label_eu": "Купити зараз - {{ amount }}",
+      "button_aria": "Купити Budds Daily Greens за {{ amount }}",
+      "benefits_aria": "Переваги продукту",
+      "benefit_energy": "Підтримує щоденну енергію",
+      "benefit_plant_based": "Рослинна формула",
+      "benefit_no_sugar": "Без доданого цукру"
+    },
+    "language_switcher": {
+      "label": "Мова",
+      "submit": "Змінити мову"
+    }
+  }
+}

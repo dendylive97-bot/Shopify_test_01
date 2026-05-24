@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "budds_product_hero": {
+      "badge": "New",
+      "heading": "Daily greens for better energy",
+      "text": "<p>A simple daily blend with vitamins, minerals, and plant-based nutrients to support energy, focus, and overall wellness.</p>",
+      "image_alt": "Budds Daily Greens pouch and shaker",
+      "shipping_text_html": "<p>Free shipping over <strong>{{ amount }}</strong></p>",
+      "shipping_aria": "Free shipping over {{ amount }}",
+      "button_label": "Buy Now",
+      "button_label_us": "Buy Now - {{ amount }}",
+      "button_label_eu": "Buy Now - {{ amount }}",
+      "button_aria": "Buy Budds Daily Greens for {{ amount }}",
+      "benefits_aria": "Product benefits",
+      "benefit_energy": "Supports daily energy",
+      "benefit_plant_based": "Plant-based formula",
+      "benefit_no_sugar": "No added sugar"
+    },
+    "language_switcher": {
+      "label": "Language",
+      "submit": "Change language"
+    }
+  }
+}

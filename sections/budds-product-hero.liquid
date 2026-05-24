@@ -1,0 +1,631 @@
+{% liquid
+  assign content_block = section.blocks | where: 'type', 'content' | first
+  assign market_handle = localization.market.handle | default: '' | downcase
+  assign country_iso = localization.country.iso_code | default: '' | upcase
+  assign eu_countries = 'AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE'
+  assign is_us_market = false
+  assign is_eu_market = false
+
+  if country_iso == 'US' or market_handle contains 'us'
+    assign is_us_market = true
+  endif
+
+  if eu_countries contains country_iso or market_handle contains 'eu' or market_handle contains 'europe'
+    assign is_eu_market = true
+  endif
+
+  assign heading_key = content_block.settings.heading_key | default: 'sections.budds_product_hero.heading'
+  assign text_key = content_block.settings.text_key | default: 'sections.budds_product_hero.text'
+  assign button_label_key = content_block.settings.button_label_key | default: 'sections.budds_product_hero.button_label'
+  assign button_aria_key = content_block.settings.button_aria_key | default: 'sections.budds_product_hero.button_aria'
+  assign image_alt_key = section.settings.image_alt_key | default: 'sections.budds_product_hero.image_alt'
+  assign badge_key = section.settings.badge_key | default: 'sections.budds_product_hero.badge'
+
+  assign market_price = localization.market.metafields.budds.hero_price.value
+  assign free_shipping_amount = localization.market.metafields.budds.free_shipping_threshold.value
+
+  assign button_url = content_block.settings.button_link
+  if is_us_market and content_block.settings.button_link_us != blank
+    assign button_url = content_block.settings.button_link_us
+    assign button_label_key = content_block.settings.button_label_us_key | default: 'sections.budds_product_hero.button_label_us'
+  elsif is_eu_market and content_block.settings.button_link_eu != blank
+    assign button_url = content_block.settings.button_link_eu
+    assign button_label_key = content_block.settings.button_label_eu_key | default: 'sections.budds_product_hero.button_label_eu'
+  elsif is_us_market
+    assign button_label_key = content_block.settings.button_label_us_key | default: 'sections.budds_product_hero.button_label_us'
+  elsif is_eu_market
+    assign button_label_key = content_block.settings.button_label_eu_key | default: 'sections.budds_product_hero.button_label_eu'
+  endif
+
+  if market_price == blank
+    assign button_label_key = content_block.settings.button_label_key | default: 'sections.budds_product_hero.button_label'
+  endif
+
+  assign heading = heading_key | t
+  assign body_text = text_key | t
+  assign badge = badge_key | t
+  assign button_label = button_label_key | t: amount: market_price
+  assign button_aria_label = button_aria_key | t: amount: market_price
+  assign image_alt = image_alt_key | t
+  assign shipping_text = 'sections.budds_product_hero.shipping_text_html' | t: amount: free_shipping_amount
+  assign shipping_aria_label = 'sections.budds_product_hero.shipping_aria' | t: amount: free_shipping_amount
+  assign benefits_aria_label = 'sections.budds_product_hero.benefits_aria' | t
+%}
+
+<section
+  class="budds-product-hero"
+  {% if heading != blank %}
+    aria-labelledby="BuddsProductHeroHeading-{{ section.id }}"
+  {% else %}
+    aria-label="{{ section.name | escape }}"
+  {% endif %}
+>
+  <div class="budds-product-hero__media" style="--budds-media-bg: {{ section.settings.media_background }};">
+    {% if badge != blank %}
+      <span class="budds-product-hero__badge budds-product-hero__badge--mobile">
+        {{ badge | escape }}
+      </span>
+    {% endif %}
+
+    <picture>
+      {% if section.settings.mobile_image != blank %}
+        <source
+          media="(max-width: 749px)"
+          srcset="
+            {{ section.settings.mobile_image | image_url: width: 450 }} 450w,
+            {{ section.settings.mobile_image | image_url: width: 750 }} 750w,
+            {{ section.settings.mobile_image | image_url: width: 1000 }} 1000w
+          "
+          sizes="100vw"
+        >
+      {% endif %}
+
+      {% if section.settings.desktop_image != blank %}
+        {{
+          section.settings.desktop_image
+          | image_url: width: 1400
+          | image_tag:
+            widths: '600, 800, 1000, 1200, 1400',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            class: 'budds-product-hero__image',
+            alt: image_alt,
+            loading: section.settings.image_loading
+        }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'budds-product-hero__image budds-product-hero__placeholder' }}
+      {% endif %}
+    </picture>
+  </div>
+
+  <div class="budds-product-hero__content">
+    <div class="budds-product-hero__content-inner">
+      {% if badge != blank %}
+        <span class="budds-product-hero__badge budds-product-hero__badge--desktop">
+          {{ badge | escape }}
+        </span>
+      {% endif %}
+
+      {% if heading != blank %}
+        <h2 id="BuddsProductHeroHeading-{{ section.id }}" class="budds-product-hero__heading">
+          {{ heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if body_text != blank %}
+        <div class="budds-product-hero__text rte">
+          {{ body_text }}
+        </div>
+      {% endif %}
+
+      {% if free_shipping_amount != blank %}
+        <div class="budds-product-hero__shipping" aria-label="{{ shipping_aria_label | escape }}">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M3 6h11v10H3V6Zm11 4h4l3 3v3h-7v-6ZM7 18.5a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6Zm10 0a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          <div class="budds-product-hero__shipping-text">{{ shipping_text }}</div>
+        </div>
+      {% endif %}
+
+      {% if button_label != blank and button_url != blank %}
+        <a class="budds-product-hero__button" href="{{ button_url }}" aria-label="{{ button_aria_label | escape }}">
+          <span>{{ button_label | escape }}</span>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M5 12h13m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {% endif %}
+
+      <ul class="budds-product-hero__benefits" aria-label="{{ benefits_aria_label | escape }}">
+        {% for block in section.blocks %}
+          {% if block.type == 'benefit' %}
+            <li class="budds-product-hero__benefit" {{ block.shopify_attributes }}>
+              <span class="budds-product-hero__benefit-icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'leaf' %}
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M5 19c8 0 13-5 14-14C10 6 5 11 5 19Zm0 0c0-5 4-8 8-10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {% when 'berry' %}
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M8 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-4-5.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0-7V2m0 0c2 0 3 .8 4 2M12 2c-2 0-3 .8-4 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {% else %}
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="m13 2-8 11h6l-1 9 9-12h-6l1-8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                {% endcase %}
+              </span>
+              {% liquid
+                assign benefit_key = block.settings.text_key | default: 'sections.budds_product_hero.benefit_energy'
+                assign benefit_text = benefit_key | t
+              %}
+              {% if benefit_text != blank %}
+                <span class="budds-product-hero__benefit-text">{{ benefit_text | escape }}</span>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .budds-product-hero {
+    --budds-dark: {{ section.settings.text_color }};
+    --budds-muted: {{ section.settings.muted_text_color }};
+    --budds-button: {{ section.settings.button_background }};
+    --budds-button-text: {{ section.settings.button_text_color }};
+    --budds-soft: {{ section.settings.icon_background }};
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: clamp(640px, 60vw, 760px);
+    background: {{ section.settings.content_background }};
+    color: var(--budds-dark);
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__media {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--budds-media-bg);
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__media picture {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__image,
+  #shopify-section-{{ section.id }} .budds-product-hero__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__content {
+    display: flex;
+    align-items: center;
+    padding: clamp(48px, 7vw, 96px) clamp(32px, 8vw, 80px);
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__content-inner {
+    width: min(100%, 522px);
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 29px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--budds-soft);
+    color: var(--budds-dark);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__badge--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__heading {
+    margin: 24px 0 14px;
+    max-width: 560px;
+    color: var(--budds-dark);
+    font-size: clamp(40px, 4.35vw, 48px);
+    line-height: 1.18;
+    letter-spacing: 0;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__text {
+    max-width: 560px;
+    color: var(--budds-muted);
+    font-size: 21px;
+    line-height: 1.16;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__shipping {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 38px;
+    color: var(--budds-dark);
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__shipping svg {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__shipping-text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    min-height: 55px;
+    margin-top: 39px;
+    border-radius: 10px;
+    background: var(--budds-button);
+    color: var(--budds-button-text);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform .18s ease, opacity .18s ease;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__button:hover {
+    transform: translateY(-1px);
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__button:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__button svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin: 40px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__benefit {
+    display: grid;
+    justify-items: center;
+    gap: 13px;
+    text-align: center;
+    color: var(--budds-muted);
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__benefit-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--budds-soft);
+    color: var(--budds-dark);
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__benefit-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .budds-product-hero {
+      display: block;
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__media {
+      height: 421px;
+      align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__image,
+    #shopify-section-{{ section.id }} .budds-product-hero__placeholder {
+      object-position: center;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__badge--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__badge--mobile {
+      position: absolute;
+      top: 51px;
+      left: 16px;
+      z-index: 1;
+      display: inline-flex;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__content {
+      display: block;
+      padding: 27px 16px 28px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__content-inner {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__heading {
+      margin: 0 0 18px;
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__text {
+      font-size: 16px;
+      line-height: 1.24;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__shipping {
+      gap: 11px;
+      margin-top: 30px;
+      font-size: 17px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__button {
+      min-height: 54px;
+      margin-top: 28px;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__benefits {
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__benefit {
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.15;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__benefit-icon {
+      width: 64px;
+      height: 64px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Budds product hero",
+  "tag": "section",
+  "class": "shopify-section--budds-product-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt_key",
+      "label": "Image alt translation key",
+      "default": "sections.budds_product_hero.image_alt"
+    },
+    {
+      "type": "select",
+      "id": "image_loading",
+      "label": "Image loading",
+      "options": [
+        {
+          "value": "eager",
+          "label": "Eager"
+        },
+        {
+          "value": "lazy",
+          "label": "Lazy"
+        }
+      ],
+      "default": "eager"
+    },
+    {
+      "type": "text",
+      "id": "badge_key",
+      "label": "Badge translation key",
+      "default": "sections.budds_product_hero.badge"
+    },
+    {
+      "type": "color",
+      "id": "media_background",
+      "label": "Media background",
+      "default": "#737a31"
+    },
+    {
+      "type": "color",
+      "id": "content_background",
+      "label": "Content background",
+      "default": "#f8faf5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0d2c1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text color",
+      "default": "#465948"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#0b2f19"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon and badge background",
+      "default": "#f0f5ec"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading_key",
+          "label": "Heading translation key",
+          "default": "sections.budds_product_hero.heading"
+        },
+        {
+          "type": "text",
+          "id": "text_key",
+          "label": "Text translation key",
+          "default": "sections.budds_product_hero.text"
+        },
+        {
+          "type": "text",
+          "id": "button_label_key",
+          "label": "Default button label key",
+          "default": "sections.budds_product_hero.button_label"
+        },
+        {
+          "type": "text",
+          "id": "button_label_us_key",
+          "label": "US button label key",
+          "default": "sections.budds_product_hero.button_label_us"
+        },
+        {
+          "type": "text",
+          "id": "button_label_eu_key",
+          "label": "EU button label key",
+          "default": "sections.budds_product_hero.button_label_eu"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Default button link"
+        },
+        {
+          "type": "url",
+          "id": "button_link_us",
+          "label": "US market button link"
+        },
+        {
+          "type": "url",
+          "id": "button_link_eu",
+          "label": "EU market button link"
+        },
+        {
+          "type": "text",
+          "id": "button_aria_key",
+          "label": "Button aria label key",
+          "default": "sections.budds_product_hero.button_aria"
+        }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bolt",
+              "label": "Bolt"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "berry",
+              "label": "Berry"
+            }
+          ],
+          "default": "bolt"
+        },
+        {
+          "type": "text",
+          "id": "text_key",
+          "label": "Text translation key",
+          "default": "sections.budds_product_hero.benefit_energy"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Budds product hero",
+      "blocks": [
+        {
+          "type": "content"
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "bolt",
+            "text_key": "sections.budds_product_hero.benefit_energy"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "text_key": "sections.budds_product_hero.benefit_plant_based"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "berry",
+            "text_key": "sections.budds_product_hero.benefit_no_sugar"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,17 @@
+key,en,uk
+sections.budds_product_hero.badge,New,Новинка
+sections.budds_product_hero.heading,Daily greens for better energy,Daily greens для кращої енергії
+sections.budds_product_hero.text,"<p>A simple daily blend with vitamins, minerals, and plant-based nutrients to support energy, focus, and overall wellness.</p>","<p>Проста щоденна суміш з вітамінами, мінералами та рослинними нутрієнтами для підтримки енергії, фокусу й загального самопочуття.</p>"
+sections.budds_product_hero.image_alt,Budds Daily Greens pouch and shaker,Пакет Budds Daily Greens і шейкер
+sections.budds_product_hero.shipping_text_html,"<p>Free shipping over <strong>{{ amount }}</strong></p>","<p>Безкоштовна доставка від <strong>{{ amount }}</strong></p>"
+sections.budds_product_hero.shipping_aria,Free shipping over {{ amount }},Безкоштовна доставка від {{ amount }}
+sections.budds_product_hero.button_label,Buy Now,Купити зараз
+sections.budds_product_hero.button_label_us,Buy Now - {{ amount }},Купити зараз - {{ amount }}
+sections.budds_product_hero.button_label_eu,Buy Now - {{ amount }},Купити зараз - {{ amount }}
+sections.budds_product_hero.button_aria,Buy Budds Daily Greens for {{ amount }},Купити Budds Daily Greens за {{ amount }}
+sections.budds_product_hero.benefits_aria,Product benefits,Переваги продукту
+sections.budds_product_hero.benefit_energy,Supports daily energy,Підтримує щоденну енергію
+sections.budds_product_hero.benefit_plant_based,Plant-based formula,Рослинна формула
+sections.budds_product_hero.benefit_no_sugar,No added sugar,Без доданого цукру
+sections.language_switcher.label,Language,Мова
+sections.language_switcher.submit,Change language,Змінити мову
