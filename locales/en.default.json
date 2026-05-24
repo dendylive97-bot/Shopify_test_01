@@ -393,6 +393,15 @@
     "language_switcher": {
       "label": "Language",
       "submit": "Change language"
+    },
+    "budds_header": {
+      "menu_aria_label": "Main navigation",
+      "mobile_menu_aria_label": "Open menu",
+      "language_symbol": "🇺🇸",
+      "nav_shop": "Shop",
+      "nav_mission": "Our Mission",
+      "nav_science": "Science",
+      "nav_academy": "Academy"
     }
   },
   "localization": {

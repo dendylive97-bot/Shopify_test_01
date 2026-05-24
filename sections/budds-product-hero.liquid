@@ -21,11 +21,18 @@
   assign image_alt_key = section.settings.image_alt_key | default: 'sections.budds_product_hero.image_alt'
   assign badge_key = section.settings.badge_key | default: 'sections.budds_product_hero.badge'
 
-  assign market_price = localization.market.metafields.budds.hero_price.value
+  assign market_metafield_price = localization.market.metafields.budds.hero_price.value
   assign free_shipping_amount = localization.market.metafields.budds.free_shipping_threshold.value
 
-  if market_price == blank
-    assign market_price = section.settings.preview_market_price
+  assign market_price = section.settings.product_price
+  if is_us_market and section.settings.product_price_us != blank
+    assign market_price = section.settings.product_price_us
+  elsif is_eu_market and section.settings.product_price_eu != blank
+    assign market_price = section.settings.product_price_eu
+  endif
+
+  if section.settings.use_market_price_metafield and market_metafield_price != blank
+    assign market_price = market_metafield_price
   endif
 
   if free_shipping_amount == blank
@@ -486,10 +493,28 @@
     },
     {
       "type": "text",
-      "id": "preview_market_price",
-      "label": "Preview price fallback",
-      "info": "Used only when the current Market metafield budds.hero_price is empty.",
+      "id": "product_price",
+      "label": "Product price",
       "default": "$25"
+    },
+    {
+      "type": "text",
+      "id": "product_price_us",
+      "label": "US product price",
+      "default": "$25"
+    },
+    {
+      "type": "text",
+      "id": "product_price_eu",
+      "label": "EU product price",
+      "default": "€23"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_market_price_metafield",
+      "label": "Use Market metafield price",
+      "info": "When enabled, budds.hero_price on the current Market overrides the prices above.",
+      "default": false
     },
     {
       "type": "text",

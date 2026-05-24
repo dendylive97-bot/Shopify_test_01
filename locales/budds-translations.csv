@@ -15,3 +15,10 @@ sections.budds_product_hero.benefit_plant_based,Plant-based formula,Рослин
 sections.budds_product_hero.benefit_no_sugar,No added sugar,Без доданого цукру
 sections.language_switcher.label,Language,Мова
 sections.language_switcher.submit,Change language,Змінити мову
+sections.budds_header.menu_aria_label,Main navigation,Головна навігація
+sections.budds_header.mobile_menu_aria_label,Open menu,Відкрити меню
+sections.budds_header.language_symbol,🇺🇸,🇺🇦
+sections.budds_header.nav_shop,Shop,Магазин
+sections.budds_header.nav_mission,Our Mission,Наша місія
+sections.budds_header.nav_science,Science,Наука
+sections.budds_header.nav_academy,Academy,Академія

@@ -8,16 +8,16 @@
     <span>{{ section.settings.brand_text | escape }}</span>
   </a>
 
-  <nav class="budds-header__nav" aria-label="{{ section.settings.menu_aria_label | escape }}">
+  <nav class="budds-header__nav" aria-label="{{ 'sections.budds_header.menu_aria_label' | t | escape }}">
     {% if section.settings.menu != blank %}
       {% for link in section.settings.menu.links %}
         <a href="{{ link.url }}">{{ link.title | escape }}</a>
       {% endfor %}
     {% else %}
-      <a href="{{ routes.all_products_collection_url }}">Shop</a>
-      <a href="/pages/our-mission">Our Mission</a>
-      <a href="/pages/science">Science</a>
-      <a href="/pages/academy">Academy</a>
+      <a href="{{ routes.all_products_collection_url }}">{{ 'sections.budds_header.nav_shop' | t }}</a>
+      <a href="/pages/our-mission">{{ 'sections.budds_header.nav_mission' | t }}</a>
+      <a href="/pages/science">{{ 'sections.budds_header.nav_science' | t }}</a>
+      <a href="/pages/academy">{{ 'sections.budds_header.nav_academy' | t }}</a>
     {% endif %}
   </nav>
 
@@ -25,7 +25,7 @@
     {% if localization.available_languages.size > 1 %}
       {% form 'localization', id: 'BuddsHeaderLanguageForm', class: 'budds-header__language' %}
         <label class="visually-hidden" for="BuddsHeaderLanguageSelect">{{ 'sections.language_switcher.label' | t }}</label>
-        <span aria-hidden="true">🇺🇸</span>
+        <span aria-hidden="true">{{ 'sections.budds_header.language_symbol' | t }}</span>
         <select id="BuddsHeaderLanguageSelect" name="locale_code" onchange="this.form.submit()">
           {% for language in localization.available_languages %}
             <option
@@ -41,7 +41,7 @@
       {% endform %}
     {% endif %}
 
-    <button class="budds-header__menu" type="button" aria-label="{{ section.settings.mobile_menu_aria_label | escape }}" aria-expanded="false">
+    <button class="budds-header__menu" type="button" aria-label="{{ 'sections.budds_header.mobile_menu_aria_label' | t | escape }}" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
@@ -186,16 +186,8 @@
       "label": "Menu"
     },
     {
-      "type": "text",
-      "id": "menu_aria_label",
-      "label": "Menu aria label",
-      "default": "Main navigation"
-    },
-    {
-      "type": "text",
-      "id": "mobile_menu_aria_label",
-      "label": "Mobile menu aria label",
-      "default": "Open menu"
+      "type": "paragraph",
+      "content": "Fallback navigation text is translated in locale files. If you select a Shopify menu, translate menu items with Shopify Translate & Adapt."
     }
   ],
   "presets": [

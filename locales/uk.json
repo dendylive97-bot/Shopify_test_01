@@ -19,6 +19,15 @@
     "language_switcher": {
       "label": "Мова",
       "submit": "Змінити мову"
+    },
+    "budds_header": {
+      "menu_aria_label": "Головна навігація",
+      "mobile_menu_aria_label": "Відкрити меню",
+      "language_symbol": "🇺🇦",
+      "nav_shop": "Магазин",
+      "nav_mission": "Наша місія",
+      "nav_science": "Наука",
+      "nav_academy": "Академія"
     }
   }
 }
