@@ -56,7 +56,7 @@
       ],
       "settings": {
         "desktop_image": "shopify://shop_images/Longevity_Complete.png",
-        "mobile_image": "shopify://shop_images/Frame_9.png",
+        "mobile_image": "shopify://shop_images/Longevity_Complete.png",
         "image_alt_key": "sections.budds_product_hero.image_alt",
         "image_loading": "eager",
         "badge_key": "sections.budds_product_hero.badge",
