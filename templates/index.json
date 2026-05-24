@@ -1,210 +1,67 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "budds-product-hero": {
+      "type": "budds-product-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "budds-product-hero-content": {
+          "type": "content",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
+            "heading_key": "sections.budds_product_hero.heading",
+            "text_key": "sections.budds_product_hero.text",
+            "button_label_key": "sections.budds_product_hero.button_label",
+            "button_label_us_key": "sections.budds_product_hero.button_label_us",
+            "button_label_eu_key": "sections.budds_product_hero.button_label_eu",
+            "button_link": "shopify://collections/all",
+            "button_link_us": "shopify://collections/all",
+            "button_link_eu": "shopify://collections/all",
+            "button_aria_key": "sections.budds_product_hero.button_aria"
           }
         },
-        "text": {
-          "type": "text",
+        "budds-product-hero-benefit-1": {
+          "type": "benefit",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
+            "icon": "bolt",
+            "text_key": "sections.budds_product_hero.benefit_energy"
           }
         },
-        "button": {
-          "type": "buttons",
+        "budds-product-hero-benefit-2": {
+          "type": "benefit",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "leaf",
+            "text_key": "sections.budds_product_hero.benefit_plant_based"
+          }
+        },
+        "budds-product-hero-benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "berry",
+            "text_key": "sections.budds_product_hero.benefit_no_sugar"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text",
-        "button"
+        "budds-product-hero-content",
+        "budds-product-hero-benefit-1",
+        "budds-product-hero-benefit-2",
+        "budds-product-hero-benefit-3"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 28,
-        "padding_bottom": 36
-      }
-    },
-    "collage": {
-      "type": "collage",
-      "blocks": {
-        "collection-0": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "product": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "second_image": false
-          }
-        },
-        "collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
-      ],
-      "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "video": {
-      "type": "video",
-      "settings": {
-        "heading": "",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "heading_size": "h1",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
-      "blocks": {
-        "column1": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column2": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column3": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ],
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "image_alt_key": "sections.budds_product_hero.image_alt",
+        "image_loading": "eager",
+        "badge_key": "sections.budds_product_hero.badge",
+        "preview_market_price": "$25",
+        "preview_free_shipping_amount": "$50",
+        "media_background": "#737a31",
+        "content_background": "#f8faf5",
+        "text_color": "#0d2c1a",
+        "muted_text_color": "#465948",
+        "button_background": "#0b2f19",
+        "button_text_color": "#ffffff",
+        "icon_background": "#f0f5ec"
       }
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
-    "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "budds-product-hero"
   ]
 }

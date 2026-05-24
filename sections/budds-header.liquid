@@ -1,0 +1,207 @@
+<header class="budds-header" role="banner">
+  <a class="budds-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+      <path d="M8 8V6a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M6.5 8h11l-1 12h-9l-1-12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M10 11h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    <span>{{ section.settings.brand_text | escape }}</span>
+  </a>
+
+  <nav class="budds-header__nav" aria-label="{{ section.settings.menu_aria_label | escape }}">
+    {% if section.settings.menu != blank %}
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+      {% endfor %}
+    {% else %}
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <a href="/pages/our-mission">Our Mission</a>
+      <a href="/pages/science">Science</a>
+      <a href="/pages/academy">Academy</a>
+    {% endif %}
+  </nav>
+
+  <div class="budds-header__actions">
+    {% if localization.available_languages.size > 1 %}
+      {% form 'localization', id: 'BuddsHeaderLanguageForm', class: 'budds-header__language' %}
+        <label class="visually-hidden" for="BuddsHeaderLanguageSelect">{{ 'sections.language_switcher.label' | t }}</label>
+        <span aria-hidden="true">🇺🇸</span>
+        <select id="BuddsHeaderLanguageSelect" name="locale_code" onchange="this.form.submit()">
+          {% for language in localization.available_languages %}
+            <option
+              value="{{ language.iso_code }}"
+              {% if language.iso_code == localization.language.iso_code %}
+                selected
+              {% endif %}
+            >
+              {{ language.iso_code | upcase }}
+            </option>
+          {% endfor %}
+        </select>
+      {% endform %}
+    {% endif %}
+
+    <button class="budds-header__menu" type="button" aria-label="{{ section.settings.mobile_menu_aria_label | escape }}" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 20;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: 61px;
+    padding: 0 clamp(32px, 12.3vw, 158px);
+    background: #f8faf5;
+    color: #0d2c1a;
+    font-family: var(--font-body-family);
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__brand {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 5px;
+    color: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__brand svg {
+    width: 19px;
+    height: 21px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__nav a {
+    color: #171d18;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__language {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__language select {
+    width: 20px;
+    min-height: 28px;
+    border: 0;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__menu {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    padding: 9px;
+    background: transparent;
+    color: #171d18;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header__menu span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin: 4px auto;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .budds-header a:focus-visible,
+  #shopify-section-{{ section.id }} .budds-header button:focus-visible,
+  #shopify-section-{{ section.id }} .budds-header select:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .budds-header {
+      display: flex;
+      justify-content: space-between;
+      min-height: 62px;
+      padding: 0 31px 0 36px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__brand {
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__nav,
+    #shopify-section-{{ section.id }} .budds-header__language {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .budds-header__menu {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Budds header",
+  "tag": "section",
+  "class": "shopify-section--budds-header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand text",
+      "default": "budds"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_aria_label",
+      "label": "Menu aria label",
+      "default": "Main navigation"
+    },
+    {
+      "type": "text",
+      "id": "mobile_menu_aria_label",
+      "label": "Mobile menu aria label",
+      "default": "Open menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Budds header"
+    }
+  ]
+}
+{% endschema %}

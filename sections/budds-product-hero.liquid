@@ -24,6 +24,14 @@
   assign market_price = localization.market.metafields.budds.hero_price.value
   assign free_shipping_amount = localization.market.metafields.budds.free_shipping_threshold.value
 
+  if market_price == blank
+    assign market_price = section.settings.preview_market_price
+  endif
+
+  if free_shipping_amount == blank
+    assign free_shipping_amount = section.settings.preview_free_shipping_amount
+  endif
+
   assign button_url = content_block.settings.button_link
   if is_us_market and content_block.settings.button_link_us != blank
     assign button_url = content_block.settings.button_link_us
@@ -92,7 +100,7 @@
             loading: section.settings.image_loading
         }}
       {% else %}
-        {{ 'product-1' | placeholder_svg_tag: 'budds-product-hero__image budds-product-hero__placeholder' }}
+        <span class="budds-product-hero__asset-image" role="img" aria-label="{{ image_alt | escape }}"></span>
       {% endif %}
     </picture>
   </div>
@@ -194,11 +202,21 @@
   }
 
   #shopify-section-{{ section.id }} .budds-product-hero__image,
-  #shopify-section-{{ section.id }} .budds-product-hero__placeholder {
+  #shopify-section-{{ section.id }} .budds-product-hero__asset-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__image {
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__asset-image {
+    background-image: url({{ 'budds-hero-desktop.png' | asset_url }});
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: auto 100%;
   }
 
   #shopify-section-{{ section.id }} .budds-product-hero__content {
@@ -349,8 +367,14 @@
     }
 
     #shopify-section-{{ section.id }} .budds-product-hero__image,
-    #shopify-section-{{ section.id }} .budds-product-hero__placeholder {
+    #shopify-section-{{ section.id }} .budds-product-hero__asset-image {
       object-position: center;
+    }
+
+    #shopify-section-{{ section.id }} .budds-product-hero__asset-image {
+      background-image: url({{ 'budds-hero-mobile.png' | asset_url }});
+      background-size: 100% auto;
+      background-position: center -62px;
     }
 
     #shopify-section-{{ section.id }} .budds-product-hero__badge--desktop {
@@ -459,6 +483,20 @@
       "id": "badge_key",
       "label": "Badge translation key",
       "default": "sections.budds_product_hero.badge"
+    },
+    {
+      "type": "text",
+      "id": "preview_market_price",
+      "label": "Preview price fallback",
+      "info": "Used only when the current Market metafield budds.hero_price is empty.",
+      "default": "$25"
+    },
+    {
+      "type": "text",
+      "id": "preview_free_shipping_amount",
+      "label": "Preview free shipping fallback",
+      "info": "Used only when the current Market metafield budds.free_shipping_threshold is empty.",
+      "default": "$50"
     },
     {
       "type": "color",
