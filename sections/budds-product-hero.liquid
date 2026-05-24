@@ -143,7 +143,10 @@
 
       {% if button_label != blank and button_url != blank %}
         <a class="budds-product-hero__button" href="{{ button_url }}" aria-label="{{ button_aria_label | escape }}">
-          <span>{{ button_label | escape }}</span>
+          <span class="budds-product-hero__button-label">{{ button_label | escape }}</span>
+          {% if market_price != blank %}
+            <span class="budds-product-hero__button-price">{{ market_price | escape }}</span>
+          {% endif %}
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
             <path d="M5 12h13m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -326,6 +329,11 @@
   #shopify-section-{{ section.id }} .budds-product-hero__button svg {
     width: 22px;
     height: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .budds-product-hero__button-price::before {
+    content: "-";
+    margin-right: 8px;
   }
 
   #shopify-section-{{ section.id }} .budds-product-hero__benefits {
