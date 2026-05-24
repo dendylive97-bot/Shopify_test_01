@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "budds-product-hero": {
@@ -52,7 +61,7 @@
         "product_price": "$25",
         "product_price_us": "$25",
         "product_price_eu": "€23",
-        "use_market_price_metafield": false,
+        "use_market_price_metafield": true,
         "preview_free_shipping_amount": "$50",
         "media_background": "#737a31",
         "content_background": "#f8faf5",
