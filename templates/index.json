@@ -63,7 +63,7 @@
         "product_price": "$25",
         "product_price_us": "$25",
         "product_price_eu": "€23",
-        "use_market_price_metafield": true,
+        "use_market_price_metafield": false,
         "preview_free_shipping_amount": "$50",
         "media_background": "#737a31",
         "content_background": "#f8faf5",
